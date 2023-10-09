@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Màn hình tập huấn</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adminPCCC.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="main-heading">{{info}}</div>
+        <form method="post">
+            <button class="main-button" name="button-start" value="start">Bắt đầu tập huấn</button>
+            <button class="main-button" name="button-info" value="info">Xem thông tin buổi tập</button>
+            <button class="main-button" name="button-logout" value="logout">Đăng xuất</button>
+        </form>
+    </div>
+</body>
+</html>

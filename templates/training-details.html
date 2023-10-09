@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/training-details.css') }}">
+    <title>Thông tin tập huấn</title>
+</head>
+<body>
+    <div class="departments-container">
+
+        {% for department in results %}
+            <div class="info-container">
+                <div class="info-item">Bộ phận: {{department}}</div>
+                <div class="info-item">Tổng số nhân viên: {{results[department]["total"]}}</div>
+                <div class="info-item">Đã điểm danh: {{results[department]["num_done"]}}</div>
+                {% if results[department]["is_done"] %}
+                    <div class="info-item">
+                        Trạng thái: <span class="completed-status">Hoàn thành</span>
+                    </div>
+                {% else %}
+                    <div class="info-item">
+                        Trạng thái: <span class="processing-status">Đang thực hiện</span>
+                    </div>
+                {% endif %}
+
+                <div class="info-item">Thời gian thực hiện: {{results[department]["execution_time"]}}</div>
+                <div class="info-item">
+                    Nhân viên chưa điểm danh: 
+                    <span class="more-content" id="absents_{{department}}">
+                        {{results[department]["absents"]}}
+                    </span>
+                    <span class="show-btn" onclick="toggleContent('absents_{{department}}')">Show</span>
+                    <span class="less-btn" onclick="toggleContent('absents_{{department}}')" style="display:none;">Less</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script src="{{ url_for('static', filename='js/training-details.js') }}"></script>
+</body>
+</html>
