@@ -30,7 +30,7 @@ video {
     border-radius: 4px;
 }
 
-.capture-button, .switch-camera-button {
+.button {
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
@@ -41,6 +41,10 @@ video {
     margin: 10px;
 }
 
-.capture-button:hover, .switch-camera-button:hover {
+.button:hover {
     background-color: #0056b3;
+}
+
+.status-text {
+    margin-top: 20px;
 }

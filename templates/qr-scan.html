@@ -9,10 +9,15 @@
 <body>
     <div class="camera-container">
         <div class="camera-header">Quét mã QR CODE</div>
+        <div id="status" class="confirmation-text"></div>
         <video id="video" autoplay playsinline muted></video>
         <br>
-        <button id="captureButton" class="capture-button" onclick="capturePhoto()">Chụp ảnh</button>
-        <button class="switch-camera-button" onclick="toggleCamera()">Đổi camera</button>
+        <form action="qr-result" method="post">
+            <button class="button" name="button-submit" value="submit">Hoàn thành</button>
+        </form>
+        <button class="button" onclick="toggleCamera()">Đổi camera</button>
+        <button class="button" onclick="capturePhoto()">Chụp ảnh</button>
+        
     </div>
 
     <script src="{{ url_for('static', filename='js/qr-scan.js') }}"></script>

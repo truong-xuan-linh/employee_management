@@ -1,6 +1,6 @@
 from flask_login import login_required
 from flask import session as flask_session
-from flask import render_template, request, jsonify, redirect, url_for, session, Blueprint
+from flask import render_template, request, flash, redirect, url_for, session, Blueprint, jsonify
 
 import io 
 import cv2
@@ -17,8 +17,10 @@ user = Blueprint("user", __name__)
 @login_required
 def qr_scan():
     if request.method == 'POST':
+        print("CCCC")
         # Get image from font-end and convert to RGB image
         image_data = request.json.get('image')
+        
         img = Image.open(io.BytesIO(base64.b64decode(image_data.split(',')[1]))).convert("RGB")
         
         #Init QR detector
@@ -30,14 +32,14 @@ def qr_scan():
         if value:
             nhanvien = session.query(NhanVien).filter_by(MaNV=value).first()
             if not nhanvien:
-                return jsonify({'redirect_url': "/user/qr-result?content=Không tìm thấy nhân viên"})
+                return jsonify(status = "Không tìm thấy nhân viên") #jsonify({'redirect_url': "/user/qr-result?content=Không tìm thấy nhân viên"})
             
             if not nhanvien.BoPhan == flask_session["bophan"]:
-                return jsonify({'redirect_url': f"/user/qr-result?content=Nhân viên {nhanvien.HoTen} không thuộc bộ phận {flask_session['bophan']}"})
+                return jsonify(status=f"Nhân viên {nhanvien.HoTen} không thuộc bộ phận {flask_session['bophan']}") #return jsonify({'redirect_url': f"/user/qr-result?content=Nhân viên {nhanvien.HoTen} không thuộc bộ phận {flask_session['bophan']}"})
             
             check = session.query(TapHuan).filter_by(MaNV=nhanvien.MaNV).first()
             if check:
-                return jsonify({'redirect_url': f"/user/qr-result?content={nhanvien.HoTen} đã được điểm danh trước đó"})
+                return jsonify(status=f"{nhanvien.HoTen} đã được điểm danh trước đó") #return jsonify({'redirect_url': f"/user/qr-result?content={nhanvien.HoTen} đã được điểm danh trước đó"})
             
             # Insert DB if QR code value is valid
             current_time = datetime.datetime.now() 
@@ -51,12 +53,12 @@ def qr_scan():
                 if ketqua_check:
                     ketqua_check.delete()
                     session.commit()
-            return jsonify({'redirect_url': f"/user/qr-result?content=Điểm danh {nhanvien.HoTen} thành công"})
+            return jsonify(status=f"Điểm danh {nhanvien.HoTen} thành công") #return jsonify({'redirect_url': f"/user/qr-result?content=Điểm danh {nhanvien.HoTen} thành công"})
             
         else:
-            return jsonify({'redirect_url': "/user/qr-result?content=Không tìm thấy QR code"})
-        
-    return render_template('qr-scan.html')
+            return jsonify(status="Không tìm thấy QR code")
+            
+    return render_template('qr-scan.html', status="Hãy nhập gì đi")
 
 
 @user.route("/qr-result", methods=['GET', 'POST'])
@@ -80,12 +82,6 @@ def qr_result():
                 session.commit()
                 
             return redirect(url_for('login'))
-        
-        # Ask before completely submitting
-        if request.form.get("button-submit", False) == "submit":
-            return render_template("qr-result.html", content=request.args.get('content'), show_confirmation=True)
-        else:
-            return redirect(url_for("user.qr_scan"))
             
-    return render_template("qr-result.html", content=request.args.get('content'), show_confirmation=False)
+    return render_template("qr-result.html")
     

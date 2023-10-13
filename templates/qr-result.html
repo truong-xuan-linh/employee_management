@@ -8,17 +8,11 @@
 </head>
 <body>
     <div class="success-container">
-        <div class="success-header">{{content}}</div>
+        <div class="success-header">Bạn chắc chắn đã hoàn thành ?</div>
         <form method="post">
             <button class="back-button" href="/user/qr-scan">Quay về</button>
-            <button class="complete-button" type="submit" value="submit" name="button-submit">Hoàn thành</button>
+            <button class="confirm-button" type="submit" name="button-yes" value="yes">Xác nhận</button>
 
-            {% if show_confirmation %}
-                <div id="confirmationPopup">
-                    <div class="confirmation-text">Bạn chắc chắn đã hoàn thành?</div>
-                    <button class="confirm-button" type="submit" name="button-yes" value="yes">Xác nhận</button>
-                </div>
-            {% endif %}
         </form>
     </div>
 </body>

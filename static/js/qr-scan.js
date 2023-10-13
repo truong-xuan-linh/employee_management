@@ -25,7 +25,7 @@ let videoStream;
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            document.getElementById('captureButton').disabled = true;
+            // document.getElementById('captureButton').disabled = true;
             // Chuyển ảnh thành base64 để gửi về server
             const imageBase64 = canvas.toDataURL('image/png');
             
@@ -40,7 +40,8 @@ let videoStream;
             .then((response) => response.json())
             .then((data) => {
                 // console.error('Error:', data);
-                window.location.href = data.redirect_url;
+                // window.location.href = data.redirect_url;
+                document.getElementById('status').innerText = data.status
             })
             .catch((error) => {
                 console.error('Error:', error);
