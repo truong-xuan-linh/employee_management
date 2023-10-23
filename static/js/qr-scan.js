@@ -8,6 +8,7 @@ let videoStream;
             try {
                 videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: (frontCamera ? 'user' : 'environment') } });
                 video.srcObject = videoStream;
+                intervalId = setInterval(capturePhoto, 1000);
             } catch (err) {
                 console.error('Error accessing the camera: ', err);
             }

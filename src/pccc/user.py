@@ -17,7 +17,6 @@ user = Blueprint("user", __name__)
 @login_required
 def qr_scan():
     if request.method == 'POST':
-        print("CCCC")
         # Get image from font-end and convert to RGB image
         image_data = request.json.get('image')
         
