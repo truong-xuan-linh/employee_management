@@ -17,6 +17,7 @@ user = Blueprint("user", __name__)
 @login_required
 def qr_scan():
     if request.method == 'POST':
+        
         # Get image from font-end and convert to RGB image
         image_data = request.json.get('image')
         
@@ -57,7 +58,7 @@ def qr_scan():
         else:
             return jsonify(status="Không tìm thấy QR code")
             
-    return render_template('qr-scan.html', status="Hãy nhập gì đi")
+    return render_template('qr-scan.html')
 
 
 @user.route("/qr-result", methods=['GET', 'POST'])
@@ -81,6 +82,9 @@ def qr_result():
                 session.commit()
                 
             return redirect(url_for('login'))
-            
+        
+        elif request.form.get("button-back", False) == "yes":
+            return redirect(url_for('user.qr_scan'))
+        
     return render_template("qr-result.html")
     
