@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pccc/training-details.css') }}">
+    <title>Thông tin diễn tập</title>
+</head>
+<body>
+<!-- <meta http-equiv="refresh" content="30"> -->
+
+<div class = "container">
+    <div id="timer"></div>
+    <table id="training-table">
+  <thead>
+    <tr>
+      <th>STT</th>
+      <th>Bộ phận</th>
+      <th>Trạng thái</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for department, result in results.items() %}
+        <tr class="{{ 'completed' if result['is_done'] else '' }}">
+          <td>{{ loop.index }}</td> <!-- Use loop.index here -->
+          <td>{{ department }}</td>
+          <td>{{ 'Hoàn thành' if result['is_done'] else 'Chưa hoàn thành' }}</td>
+        </tr>
+        {% endfor %}
+  </tbody>
+</table>
+    <div id="new-history" style="display: none;">
+        <div class="info-item">Mốc thời gian: <span class="info-content">{{new_history["MocThoiGian"]}}</span></div>
+        <div class="info-item">Kết quả: <span class="info-content red-text">{{new_history["KetQua"]}}</span></div>
+        <div class="info-item">Lý do: <span class="info-content red-text">{{new_history["LyDo"]}}</span></div>
+        <div class="info-item">Thời gian diễn ra thực tế: <span class="info-content">{{new_history["ThoiGianHoanThanh"]}}</span></div>
+        <div class="info-item">Tổng số có mặt trong ngày : <span class="info-content">{{new_history["TongSo"]}}</span></div>
+        <div class="info-item">Có mặt tại nơi tập trung: <span class="info-content">{{new_history["CoMat"]}}</span></div>
+        <div class="info-item">Vắng mặt: <span class="info-content red-text">{{new_history["VangMat"]}}</span></div>
+    </div>
+</div>
+        <script src="{{ url_for('static', filename='js/pccc/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/pccc/training-details.js') }}"></script>
+
+</body>
+</html>

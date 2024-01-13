@@ -1,0 +1,92 @@
+body {
+  background-image: url('/static/img/login-bg.jpg');
+  background-size: cover;
+  background-position: center; /* Center the background image */
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-image: url('/static/img/blurred-background.jpg');
+  background-size: cover;
+  padding: 20px;
+  border: 3px solid #fff; /* Increase the border size */
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+p {
+  color: #000080; /* Same color as .main-heading */
+  line-height: 1.6;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: larger;
+  font-weight: bold;
+  padding: 0.2em 0; /* Less padding than .main-heading */
+}
+
+.main-heading {
+  color: #000080;
+  font-size: 24px;
+  line-height: 1.6;
+  padding: 1em 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-button {
+  background-color: #000080;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  text-align: center;
+  width: 90%;
+  font-weight: bold;
+  font-size: larger;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-button:hover {
+  background-color: #444;
+}
+
+button[name="button-start"] {
+  background-color: #ff7f00;
+}
+
+button[name="button-start"]:hover {
+  background-color: #cc6600;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 80%;
+    background-position: center; /* Add this line */
+  }
+
+  .main-heading {
+    font-size: 20px;
+  }
+
+  .main-button {
+    padding: 8px 16px;
+    width: 80%;
+  }
+}

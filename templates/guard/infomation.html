@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/guard/qr-result.css') }}">
+    <title>Success Page</title>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">Thông tin nhân viên</div>
+        <form method="post">
+            <div id="infomationContainer">
+                <div class="row">
+                    <label>Mã nhân viên:</label>
+                    <input name="manv" value="{{ employee.MaNV }}"  readonly="readonly" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Họ Tên:</label>
+                    <input name="name" value="{{ employee.HoTen }}"  readonly="readonly" required>
+                    <br>
+                </div>
+                
+                <div class="row">
+                    <label>Bộ phận:</label>
+                    <input name="name" value="{{ employee.BoPhan }}"  readonly="readonly" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Phòng ban:</label>
+                    <input name="name" value="{{ employee.PhongBan }}"  readonly="readonly" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Thông tin nghỉ phép hôm nay: {{on_leave_time}}</label>
+                    <br>
+                </div>
+
+            </div>
+
+            <button class="confirm-button" type="submit" name="button-yes" value="yes" id="button-yes">Xác nhận thông tin</button>
+        </form>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/guard/infomation.js') }}"></script>
+
+</body>
+</html>

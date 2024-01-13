@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Màn hình tập huấn</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pccc/adminPCCC.css') }}">
+</head>
+<body>
+    <div class="container">
+        <p>Xin chào, {{ admin_name }}!</p>
+        <div class="main-heading">{{info}}</div>
+        <form method="post">
+            <button class="main-button" id="start-button" name="button-start" value="start">Bắt đầu diễn tập</button>
+            <button class="main-button" name="button-info" value="info">Thông tin buổi diễn tập</button>
+            <button class="main-button" name="button-logout" value="logout">Đăng xuất</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('start-button').addEventListener('click', function() {
+            localStorage.clear();
+            localStorage.setItem('startTimer', 'true');
+        });
+    </script>
+</body>
+</html>

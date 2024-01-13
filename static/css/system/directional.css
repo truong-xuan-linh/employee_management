@@ -1,0 +1,74 @@
+body {
+  background-image: url('/static/img/login-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.success-container {
+  background-image: url('/static/img/blurred-background.jpg');
+  background-size: cover;
+  padding: 20px;
+  border: 3px solid #fff; /* Increase the border size */
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.success-header {
+  font-size: larger;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.back-button {
+  background-color: #000080;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+  font-size: larger;
+  text-decoration: none;
+  display: block;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.confirm-button {
+  background-color: #ff7f00;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+  font-size: larger;
+  text-decoration: none;
+  display: block;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.back-button:hover:hover {
+  background-color: #ff7f00;
+}
+
+@media (max-width: 600px) {
+  .success-container {
+    width: 95%;
+    background-position: center; /* Add this line */
+  }
+}

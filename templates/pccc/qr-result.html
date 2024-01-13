@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pccc/qr-result.css') }}">
+    <title>Success Page</title>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">Bạn chắc chắn đã hoàn thành?</div>
+        <form method="post">
+            <button class="confirm-button" type="submit" name="button-yes" value="yes">Xác nhận</button>
+            <a href="/user/qr-scan" class="back-button" onclick="window.history.back()">Quay về</a>
+
+
+        </form>
+
+    </div>
+</body>
+</html>

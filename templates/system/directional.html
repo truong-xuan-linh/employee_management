@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/system/directional.css') }}">
+    <title>Success Page</title>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">Xin chào , {{ name }}!</div>
+        <form method="post">
+            <a href="/user/qr-scan" class="back-button">Phòng cháy chữa cháy</a>
+            <a href="/attendance/qr-scan" class="back-button">Điểm danh nhân viên</a>
+            <a href="/on-leave/qr-scan" class="back-button">Xin nghỉ phép</a>
+            <a href="/guard/qr-scan" class="back-button">Quản lý ra vào</a>
+            <a href="/" class="back-button" onclick="window.history.back()">Đăng xuất</a>
+
+        </form>
+
+    </div>
+</body>
+</html>

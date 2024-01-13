@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/system/login.css') }}">
+</head>
+<body>
+  <div class="login-container">
+    <div class="header-container">
+    <img src="../static/img/logo.png" alt="login image" class="logo">
+    <h1 class="login-header">Điểm danh PCCC</h1>
+    </div>
+    {% if error %}
+      <div class="error-message">Tên tài khoản hoặc mật khẩu không đúng</div>
+    {% endif %}
+    <form method="POST">
+      <input type="text" class="form-input" name="username" placeholder="Tên người dùng" required><br>
+      <input type="password" class="form-input" name="password" placeholder="Mật khẩu" required><br>
+      <input type="submit" class="login-button" value="Đăng nhập">
+    </form>
+  </div>
+</body>
+</html>

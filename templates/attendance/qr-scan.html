@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/attendance/qr-scan.css') }}">
+    <title>Quét mã QR CODE</title>
+</head>
+<body>
+<div class="container">
+    <div class="camera-container">
+    <div id="status" class="confirmation-text"></div>
+    <video id="video" autoplay playsinline muted></video>
+    <br>
+    <form action="qr-result" method="post">
+        <button class="button" name="button-submit" value="submit">Hoàn thành</button>
+    </form>
+    <button class="button" onclick="toggleCamera()">Đổi camera</button>
+</div>
+<div class="unscanned-employees">
+            <h2>Danh sách nhân viên chưa điểm danh trong ngày:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã NV</th>
+                        <th>Họ tên</th>
+                        <th>Bộ phận</th>
+                        <th>Phòng ban</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.MaNV }}</td>
+                        <td>{{ employee.HoTen }}</td>
+                        <td>{{ employee.BoPhan }}</td>
+                        <td>{{ employee.PhongBan }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/attendance/qr-scan.js') }}"></script>
+</body>
+</html>

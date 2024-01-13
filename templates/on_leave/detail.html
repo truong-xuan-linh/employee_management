@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/on_leave/detail.css') }}">
+    <title>Quét mã QR CODE</title>
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            <label for="filter_type">Filter Type:</label>
+            <select name="filter_type" id="option" onchange="toggleVisibility()">
+                <option value="all">Toàn bộ</option>
+                <option value="employee">Mã nhân viên</option>
+                <option value="department">Phòng ban</option>
+            </select>
+            <br>
+
+            <label id="fieldLabel" style="display:none;"></label>
+            <input type="text" id="fieldContainer" style="display:none;">
+
+            <input name="scan" type="submit" value="Hoặc quét mã QR" id="fieldScan" style="display:none;">
+
+            <br>
+    
+            <label for="start_date">Từ ngày:</label>
+            <input type="date" name="start_date" id="start_date">
+            <label for="end_date">Đến ngày:</label>
+            <input type="date" name="end_date" id="end_date">
+    
+            <br>
+    
+            <input type="submit" value="Lọc" name="submit">
+        </form>
+
+        <div class="table-container">
+            <h2>Thông tin nghỉ phép</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã NV</th>
+                        <th>Họ tên</th>
+                        <th>Phòng ban</th>
+                        <th>Giờ ra</th>
+                        <th>Giờ vào</th>
+                        <th>Giờ ra thực tế</th>
+                        <th>Giờ vào thực tế</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.MaNV }}</td>
+                        <td>{{ employee.HoTen }}</td>
+                        <td>{{ employee.PhongBan }}</td>
+                        <td>{{ employee.GioRa }}</td>
+                        <td>{{ employee.GioVao }}</td>
+                        <td>{{ employee.GioRaThucTe }}</td>
+                        <td>{{ employee.GioVaoThucTe }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/on_leave/detail.js') }}"></script>
+
+
+</body>
+</html>

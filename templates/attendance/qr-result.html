@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/attendance/qr-result.css') }}">
+    <title>Success Page</title>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">Bạn chắc chắn đã hoàn thành?</div>
+        <form method="post">
+            <div id="emailContainer">
+                {% for email in email_list %}
+                <div class="email-row">
+                    <label class="email-input">Email:</label>
+                    <input class="email-input" type="email" name="email" value="{{ email }}" required>
+                    {% if loop.index > 1 %}
+                        <button type="button" onclick="removeEmailField(this)">-</button>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" onclick="addEmailField()">+</button>
+            <br>
+            <button class="confirm-button" type="submit" name="button-yes" value="yes" id="button-yes">Xác nhận thông tin</button>
+            <a href="/attendance/qr-scan" class="back-button" onclick="window.history.back()">Quay về</a>
+
+        </form>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/attendance/qr-result.js') }}"></script>
+    
+</body>
+</html>
