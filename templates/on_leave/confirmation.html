@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/on_leave/qr-result.css') }}">
+    <title>Success Page</title>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">Thông tin nhân viên</div>
+        <form method="post">
+            <div id="infomationContainer">
+                <div class="row">
+                    <label>Mã nhân viên:</label>
+                    <input name="manv" value="{{ employee.MaNV }}"  readonly="readonly" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Họ Tên:</label>
+                    <input name="name" value="{{ employee.HoTen }}"  readonly="readonly" required>
+                    <br>
+                </div>
+                
+                <div class="row">
+                    <label>Bộ phận:</label>
+                    <input name="name" value="{{ employee.BoPhan }}"  readonly="readonly" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Phòng ban:</label>
+                    <input name="name" value="{{ employee.PhongBan }}"  readonly="readonly" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Nghỉ phép từ:</label>
+                    <input type="datetime-local" name="out" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Đến:</label>
+                    <input type="datetime-local" name="in" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Nghỉ phép gãy:</label>
+                    <input type="checkbox" name="type">
+                    <br>
+                </div>
+
+                {% for email in email_list %}
+                <div class="row">
+                    <label>Email gửi:</label>
+                    <input type="email" name="email" value="{{ email }}">
+                    {% if loop.index > 1 %}
+                        <button type="button" onclick="removeEmailField(this)">-</button>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <button type="button" onclick="addEmailField()">+</button>
+            <br>
+            <button class="confirm-button" type="submit" name="button-yes" value="yes" id="button-yes">Xác nhận thông tin</button>
+        </form>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/on_leave/confirmation.js') }}"></script>
+
+    
+</body>
+</html>

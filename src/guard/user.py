@@ -60,7 +60,9 @@ def infomation():
     current_time = datetime.datetime.now()
     on_leaves_infomation =  session.query(NghiPhep) \
                         .filter_by(MaNV=manv) \
-                        .filter(extract('day', NghiPhep.GioRa) == current_time.day) \
+                        .filter(extract('day', NghiPhep.GioRa) == current_time.day,
+                                extract('month', NghiPhep.GioRa) == current_time.month,
+                                extract('year', NghiPhep.GioRa) == current_time.year) \
                         .order_by(NghiPhep.ThoiGian).all()
     
     on_leave_time = ""

@@ -1,14 +1,15 @@
-from flask_login import login_required
 from flask import session as flask_session
 from flask import render_template, request, redirect, url_for, Blueprint, jsonify
-from pyzbar.pyzbar import decode
+
 import io
 import base64
 import datetime
 from PIL import Image
+from pyzbar.pyzbar import decode
 
 from src.pccc.database import NhanVien
 from src.attendance.database import session, DiemDanh, KetQuaDiemDanh, func, and_, desc
+
 from src.system.common import send_email
 from src.system.common import required_roles
 
@@ -50,13 +51,6 @@ def qr_scan():
             
             session.add(diemdanh)
             session.commit()
-
-            # After submit, if user still continue scan qr code then delete department in KetQua database
-            # if flask_session.get("hoanthanh", False) == True:
-            #     ketqua_check = session.query(DiemDanh).filter_by(BoPhan=flask_session["bophan"])
-            #     if ketqua_check:
-            #         ketqua_check.delete()
-            #         session.commit()
                     
             return jsonify(status=f"Điểm danh {nhanvien.HoTen} thành công")
 
@@ -95,7 +89,10 @@ def qr_result():
                                     .filter(NhanVien.MaNV.notin_(session.query(DiemDanh.MaNV).filter(func.date(DiemDanh.ThoiGian) == current_time.date()))) \
                                     .filter_by(BoPhan=flask_session["bophan"]) \
                                     .all()
-            employee_present =  session.query(DiemDanh.MaNV).filter(and_(func.date(DiemDanh.ThoiGian) == current_time.date(), DiemDanh.BoPhan==flask_session["bophan"])).all()            
+            employee_absent = [employee.HoTen for employee in employee_absent]
+            
+            employee_present =  session.query(DiemDanh).filter(and_(func.date(DiemDanh.ThoiGian) == current_time.date(), DiemDanh.BoPhan==flask_session["bophan"])).all()            
+            employee_present = [employee.HoTen for employee in employee_present]
             
             if ketqua_check:
                 ketqua_check.SoLuongVang = len(employee_absent)
@@ -114,12 +111,15 @@ def qr_result():
                 session.add(ketqua)
                 session.commit()
                 header = f"[{flask_session['bophan']}] Báo cáo điểm danh nhân viên ngày {current_time.date()}"
-            
+                        
             content = f'''
             Thời gian: {current_time.date()},
             Bộ phận: {flask_session['bophan']},
+            Nhân viên có mặt: {", ".join(employee_present)},
             Số lượng có mặt: {len(employee_present)},
-            Số lượng vắng mặt: {len(employee_absent)}
+            Nhân viên vắng mặt: {", ".join(employee_absent)},
+            Số lượng vắng mặt: {len(employee_absent)},
+                
             '''
             for email in email_list:
                 send_email(email, header=header, content=content)
