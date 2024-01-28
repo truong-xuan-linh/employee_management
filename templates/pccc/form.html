@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pccc/form.css') }}">
+    <title>PCCC form</title>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">Thông tin điểm danh</div>
+        <form method="post">
+            <div id="infomationContainer">
+
+                <div class="row">
+                    <label>Bộ phận:</label>
+                    <input name="bophan" value="{{ bophan }}" readonly="readonly" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Phòng ban:</label>
+                    <input name="phongban" value="{{ phongban }}" readonly="readonly" required>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Số lượng có mặt:</label>
+                    <input name="present" type="number" required>
+                    <br>
+                </div>
+                
+               
+            <button class="confirm-button" type="submit" name="button-yes" value="yes" id="button-yes">Xác nhận thông tin</button>
+        </form>
+        
+    </div>
+    
+</body>
+</html>

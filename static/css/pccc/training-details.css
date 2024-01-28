@@ -47,9 +47,15 @@ body {
 }
 
 #training-table .completed {
+  background-color: #00cc77;
+  color: #fff;
+}
+
+#training-table .not-completed {
   background-color: #cc6600;
   color: #fff;
 }
+
 
 #new-history {
   background-color: #f9f9f9; /* Light grey background */

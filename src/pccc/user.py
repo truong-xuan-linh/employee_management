@@ -7,7 +7,7 @@ import base64
 import datetime
 from PIL import Image
 
-from src.pccc.database import session, NhanVien, DienTap, KetQua
+from src.pccc.database import session, NhanVien, DienTap, KetQua, DienTap2
 from src.system.common import required_roles
 
 user = Blueprint("user", __name__)
@@ -85,3 +85,25 @@ def qr_result():
             return redirect(url_for('login'))
 
     return render_template("pccc/qr-result.html")
+
+@user.route("/form", methods=['GET', 'POST'])
+@required_roles("user")
+def form_infomation():
+    
+    bophan = flask_session["bophan"]
+    phongban = flask_session["phongban"]
+    
+    if request.method == "POST":
+        if request.form.get("button-yes", False) == "yes":
+
+            present = int(request.form.get("present"))
+            current_time = datetime.datetime.now()
+            
+            taphuan = DienTap2(BoPhan=bophan, PhongBan=phongban, SoLuongCoMat=present, ThoiGian=current_time)
+            session.add(taphuan)
+            session.commit()
+            
+
+            return redirect(url_for('directional.options'))
+        
+    return render_template("pccc/form.html", bophan=bophan, phongban=phongban)

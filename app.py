@@ -6,7 +6,7 @@ from functools import wraps
 from src.system.directional import directional
 
 from src.pccc.user import user
-from src.pccc.admin import admin
+from src.pccc.admin_v2 import admin
 from src.pccc.database import session, Account, NhanVien
 
 from src.attendance.user import attendance
@@ -43,6 +43,7 @@ class User(UserMixin):
 def load_user(user_id):
     user = User()
     user.id = user_id
+    print(user_id)
     staff_info = session.query(NhanVien).filter_by(MaNV=user_id).first()
     user.MaNV = staff_info.MaNV
     user.HoTen = staff_info.HoTen
@@ -76,6 +77,7 @@ def login():
             user.id = username
             user.role = [role.strip() for role in db_account.Role.split(",")]
             flask_session["bophan"] = db_account.BoPhan
+            flask_session["phongban"] = db_account.PhongBan
             flask_session["role"] = user.role
             login_user(user)
             return decision(flask_session["role"])

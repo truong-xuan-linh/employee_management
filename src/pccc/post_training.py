@@ -84,6 +84,55 @@ def create_excel_file(results, new_history, staff_absent_df, filename):
         absent_staff_df.to_excel(writer, sheet_name='Danh sách vắng', index=False)
     print(f"File {filename} has been created.")
 
+def create_excel_file_v2(results, new_history, filename):
+    # Convert new_history to DataFrame
+    new_history_df = pd.DataFrame(new_history, index=[0])
+    new_history_df.columns = ["Mốc thời gian", "Kết quả", "Lý do", "Thời gian diễn ra thực tế",
+                              "Tổng số có mặt trong ngày", "Có mặt tại nơi tập trung", "Vắng mặt"]
+
+    new_history_header = ["CÔNG TY CP DỆT MAY 29/3 \nĐỘI PCCC",
+                          "BÁO CÁO TỔNG HỢP \nĐIỂM DANH QUÂN SỐ CÓ MẶT TẠI NƠI TẬP TRUNG",
+                          "HCB-CSR-THTN/BM1 \nLần soát xét : 01/00 \nNgày hiệu lực: 30/12/2023 \nNgười soạn thảo: Phòng Tổng hợp",
+                          "", "", "", ""
+                          ]
+    new_history_df = custom_df(new_history_df, new_history_header)
+
+    # Create a DataFrame for detailed results
+    detailed_results = []
+    for department, result in results.items():
+        detailed_results.append({
+            'Mốc thời gian': result['last_time'],
+            'Xí nghiệp/Phòng ban': department,
+            'Tổ/Bộ phận': department,
+            'Tổng số có mặt trong ngày': result['total'],
+            'Có mặt tại nơi tập trung': result['num_done'],
+            'Vắng mặt': result['total'] - result['num_done'],
+        })
+    detailed_results_df = pd.DataFrame(detailed_results)
+    detailed_results_header = ["CÔNG TY CP DỆT MAY 29/3 \nĐỘI PCCC",
+                               "BÁO CÁO CHI TIẾT \nĐIỂM DANH QUÂN SỐ CÓ MẶT TẠI NƠI TẬP TRUNG",
+                               "HCB-CSR-THTN/BM1 \nLần soát xét : 01/00 \nNgày hiệu lực: 30/12/2023 \nNgười soạn thảo: Phòng Tổng hợp",
+                               "", "", ""]
+    detailed_results_df = custom_df(detailed_results_df, detailed_results_header)
+
+
+    # Get the directory name
+    dir_name = "Báo cáo diễn tập"  # replace with your directory
+
+    # Create the directory if it does not exist
+    os.makedirs(dir_name, exist_ok=True)
+
+    # Replace invalid characters in filename
+    filename = filename.replace("/", "_").replace("\\", "_")
+
+    # Create the full file path
+    filename = os.path.join(dir_name, filename)
+
+    # Write to Excel file
+    with pd.ExcelWriter(filename) as writer:
+        new_history_df.to_excel(writer, sheet_name='Kết quả diễn tập', index=False)
+        detailed_results_df.to_excel(writer, sheet_name='Chi tiết', index=False)
+    print(f"File {filename} has been created.")
 
 def send_email_with_attachment(recipient, filename, new_history):
     # Set up the SMTP server

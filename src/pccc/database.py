@@ -40,7 +40,16 @@ class DienTap(Base):
     __tablename__ = "DienTap"
     extend_existing = True
 
-
+class DienTap2(Base):
+    Id = Column(Integer, primary_key=True, autoincrement=True)
+    
+    BoPhan = Column(String(255))
+    PhongBan = Column(String(255))
+    SoLuongCoMat = Column(Integer)
+    ThoiGian = Column(DateTime)
+    __tablename__ = "DienTap2"
+    extend_existing = True
+    
 # TapHuan.__table__.drop(engine)
 
 class KetQua(Base):

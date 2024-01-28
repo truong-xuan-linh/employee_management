@@ -34,11 +34,19 @@
                     <input name="name" value="{{ employee.PhongBan }}"  readonly="readonly" required>
                     <br>
                 </div>
-
-                <div class="row">
-                    <label>Thông tin nghỉ phép hôm nay: {{on_leave_time}}</label>
-                    <br>
-                </div>
+                
+                
+                <label for="filter_type">Kiểu quét:</label>
+                <select name="filter_type" id="option" onchange="toggleVisibility()">
+                    {% if is_out %}
+                        <option value="out">Quét ra</option>
+                        <option value="in">Quét vào</option>
+                    {% else %}
+                        <option value="in">Quét vào</option>
+                        <option value="out">Quét ra</option>
+                    {% endif %}
+                </select>
+                <br>
 
             </div>
 
@@ -47,7 +55,7 @@
 
     </div>
 
-    <script src="{{ url_for('static', filename='js/guard/information.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/guard/infomation.js') }}"></script>
 
 </body>
 </html>

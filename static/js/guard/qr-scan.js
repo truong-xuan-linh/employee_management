@@ -22,6 +22,16 @@ let videoStream;
             openCamera();
         }
 
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
         function capturePhoto() {
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
@@ -29,9 +39,9 @@ let videoStream;
             // document.getElementById('captureButton').disabled = true;
             // Chuyển ảnh thành base64 để gửi về server
             const imageBase64 = canvas.toDataURL('image/png');
-            
+            const guardType = getParameterByName('guard_type');
             // Gửi ảnh về server
-            fetch('/guard/qr-scan', {
+            fetch('/guard/qr-scan?guard_type='+guardType, {
                 method: 'POST',
                 body: JSON.stringify({ image: imageBase64 }),
                 headers: {

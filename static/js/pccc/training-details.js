@@ -50,11 +50,11 @@ window.onload = function() {
 
     var rows = document.querySelectorAll('#training-table tbody tr');
     var allDone = Array.from(rows).every(function(row) {
-        return row.classList.contains('completed');
+        return row.classList.contains('completed') || row.classList.contains('not-completed');
     });
 
     if (allDone) {
-        document.getElementById('training-table').style.display = 'none'; // Hide the table
+        // document.getElementById('training-table').style.display = 'none'; // Hide the table
         document.getElementById('new-history').style.display = 'block';
         document.getElementById('timer').style.display = 'none'; // Hide the timer
         localStorage.removeItem('seconds'); // Clear the timer

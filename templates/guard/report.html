@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/guard/report.css') }}">
+    <title>Success Page</title>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">Report</div>
+        <form method="post">
+            <div id="infomationContainer">
+
+                <div class="row">
+                    <label>Từ:</label>
+                    <input type="date" name="start" value={{start}}>
+                    <br>
+                </div>
+
+                <div class="row">
+                    <label>Đến:</label>
+                    <input type="date" name="end" value={{end}}>
+                    <br>
+                </div>
+                
+                {% for email in email_list %}
+                    <div class="email-row">
+                        <label>Email gửi:</label>
+                        <input type="email" name="email" value="{{ email }}" required>
+                        {% if loop.index > 1 %}
+                            <button type="button" onclick="removeEmailField(this)">-</button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                
+            </div>
+            
+            <button type="button" onclick="addEmailField()">+</button>
+            <br>
+            <button class="confirm-button" type="submit" name="button-yes" value="yes" id="button-yes">Xác nhận</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/guard/report.js') }}"></script>
+</body>
+</html>
