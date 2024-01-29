@@ -18,18 +18,16 @@ def get_results(engine, training_time_dir):
     
     # Init dataframe
     
-    query=f"SELECT * FROM DiemDanh WHERE DATE(ThoiGian) == '{start_time.date()}'"
+    query=f"SELECT * FROM NhanVien"
     
     staff_df = pd.read_sql(query, engine)
     training_df = pd.read_sql_table('DienTap2', engine)
     result_df = pd.read_sql_table('KetQua', engine)
 
     staff_department_df = staff_df.groupby(by=["BoPhan"]).agg({"Id": lambda x: len(x),
-                                                               "ThoiGian": "max"
                                                                }).reset_index()
     staff_department_df = staff_department_df.rename(columns={
         "Id": "counts",
-        "ThoiGian": "last_time"
     })
     
     # Get full dashboard results

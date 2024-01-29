@@ -104,7 +104,7 @@ def infomation():
     return render_template("guard/infomation.html", employee=employee, on_leave_time=on_leave_time)
 
 @guard.route("/v2/infomation", methods=['GET', 'POST'])
-@required_roles("head_guard")
+@required_roles("head_guard", "guard")
 def v2_infomation():
     manv = request.args.get("manv", "")
     employee =  session.query(NhanVien) \
@@ -151,7 +151,7 @@ def v2_infomation():
     return render_template("guard/infomation_v2.html", employee=employee, is_out=is_out)
 
 @guard.route("/report", methods=['GET', 'POST'])
-@required_roles("head_guard", "guard")
+@required_roles("head_guard")
 def report():
             
     current_time = datetime.datetime.now()
@@ -200,4 +200,8 @@ def report():
 @guard.route("/directional", methods=['GET'])
 @required_roles("guard", "head_guard")
 def options():
+    if "guard" in flask_session["role"]:
+        print(flask_session["role"])
+        return redirect(url_for('guard.qr_scan', guard_type="frequently"))
+    
     return render_template("guard/directional.html", name=current_user.HoTen)
